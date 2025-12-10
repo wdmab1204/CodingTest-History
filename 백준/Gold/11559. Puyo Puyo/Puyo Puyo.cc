@@ -10,12 +10,12 @@ bool IsValidCoord(int x, int y) {
     return x >= 0 && x < 6 && y >= 0 && y < 12;
 }
 
-vector<pair<int,int>> GetGroup(int x, int y, char c, int visited[12][6]) {
+vector<pair<int, int>> GetGroup(int x, int y, char c, int visited[12][6]) {
     queue<pair<int, int>> q;
     q.emplace(x, y);
     visited[y][x] = 1;
-    int xdir[4] = {1,-1,0,0};
-    int ydir[4] = {0,0,1,-1};
+    int xdir[4] = { 1,-1,0,0 };
+    int ydir[4] = { 0,0,1,-1 };
 
     vector<pair<int, int>> groupList;
 
@@ -43,22 +43,22 @@ vector<pair<int,int>> GetGroup(int x, int y, char c, int visited[12][6]) {
     return groupList;
 }
 
-vector<pair<int,int>> FindGroup() {
-    
+vector<pair<int, int>> FindGroup() {
+    int visited[12][6] = { 0, };
     bool findGroup = true;
     vector<pair<int, int>> groupListContainer;
     for (int y = 0; y < 12; y++) {
         for (int x = 0; x < 6; x++) {
             if (arr[y][x] == '.')
                 continue;
-            int visited[12][6] = { 0, };
+
             auto groupList = GetGroup(x, y, arr[y][x], visited);
             if (groupList.size() >= 4) {
                 groupListContainer.insert(groupListContainer.end(), groupList.begin(), groupList.end());
             }
         }
     }
-    
+
 
     return groupListContainer;
 }
@@ -83,8 +83,8 @@ void DownShift() {
     for (int y = 11; y >= 0; y--) {
         for (int x = 0; x < 6; x++) {
             if (arr[y][x] != '.') {
-                int beforeY     = y;
-                int currentY    = y + 1;
+                int beforeY = y;
+                int currentY = y + 1;
                 while (IsValidCoord(x, currentY)) {
                     if (arr[currentY][x] != '.')
                         break;
